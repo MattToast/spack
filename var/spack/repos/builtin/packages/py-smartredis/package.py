@@ -37,9 +37,9 @@ class PySmartredis(PythonPackage):
     depends_on("python@3.8:3.10", type=("build", "run"))
     depends_on("py-setuptools@42:", type=("build",))
     depends_on("cmake@3.13:", type=("build",))
-    depends_on("hiredis@1.0", type=("build", "link", "run"))
-    depends_on("redis-plus-plus@1.3 cxxstd=17", type=("build", "link"))
-    depends_on("py-pybind11@2.6", type=("build",))
+    depends_on("hiredis@1.0:", type=("build", "link", "run"))
+    depends_on("redis-plus-plus@1.3: cxxstd=17", type=("build", "link"))
+    depends_on("py-pybind11@2.6:", type=("build",))
     
     depends_on("py-numpy@1.18.2:", type=("build", "run"))
 
