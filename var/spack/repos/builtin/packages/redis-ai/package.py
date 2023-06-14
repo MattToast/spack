@@ -55,9 +55,9 @@ class RedisAi(MakefilePackage):
 
     # Optional Deps
     with when("+torch"):
-        depends_on("py-torch@1.11.0~cuda~rocm", type=("build", "link"), when="~cuda~rocm")
-        depends_on("py-torch@1.11.0+cuda+cudnn~rocm", type=("build", "link"), when="+cuda")
-        # depends_on("py-torch@1.11.0~cuda+rocm", type=("build", "link"), when="+rocm")
+        depends_on("py-torch@1.11.0:~cuda~rocm", type=("build", "link"), when="~cuda~rocm")
+        depends_on("py-torch@1.11.0:+cuda+cudnn~rocm", type=("build", "link"), when="+cuda")
+        depends_on("py-torch@1.11.0:~cuda+rocm", type=("build", "link"), when="+rocm")
 
     build_directory = "opt"
     parallel = False
