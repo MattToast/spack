@@ -53,6 +53,21 @@ class RedisAi(MakefilePackage):
     depends_on("cuda@11.2:", type=("build", "link", "run"), when="+cuda")
     depends_on("cudnn@8.1:", type=("build", "link", "run"), when="+cuda")
 
+    with when("+rocm"):
+        depends_on("hsa-rocr-dev")
+        depends_on("hip")
+        depends_on("rocprim")
+        depends_on("hipcub")
+        depends_on("rocthrust")
+        depends_on("roctracer-dev")
+        depends_on("rocrand")
+        depends_on("hipsparse")
+        depends_on("hipfft")
+        depends_on("rocfft")
+        depends_on("rocblas")
+        depends_on("miopen-hip")
+        depends_on("rocminfo")
+
     # Optional Deps
     with when("+torch"):
         depends_on("py-torch@1.11.0:~cuda~rocm", type=("build", "link"), when="~cuda~rocm")
