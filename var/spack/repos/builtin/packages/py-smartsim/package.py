@@ -40,6 +40,7 @@ class PySmartsim(PythonPackage):
 
     variant("torch", default=True, description="Build with the pytorch backend")
     variant("cuda", default=False, description="Use CUDA")
+    variant("rocm", default=False, description="Use ROCm")
 
     depends_on("python@3.8:3.10", type=("build", "run"))
     depends_on("py-wheel", type=("build",))
@@ -61,12 +62,14 @@ class PySmartsim(PythonPackage):
 
     depends_on("redis-ai@1.2.7:", type=("build", "run"))
     depends_on("redis-ai+cuda", type=("build", "run"), when="+cuda")
+    depends_on("redis-ai+rocm", type=("build", "run"), when="+rocm")
 
     # ML Deps
     with when("+torch"):
         depends_on("redis-ai+torch", type=("build", "run"))
-        depends_on("py-torch@1.11", type=("build", "run"))
+        depends_on("py-torch@1.11:", type=("build", "run"))
         depends_on("py-torch+cuda+cudnn", type=("build", "run"), when="+cuda")
+        depends_on("py-torch+rocm", type=("build", "run"), when="+rocm")
 
     # Remove dangerous build functionality from spack install
     patch("dont-build-db.patch")
