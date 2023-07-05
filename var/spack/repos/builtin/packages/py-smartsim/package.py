@@ -36,6 +36,7 @@ class PySmartsim(PythonPackage):
 
     maintainers("MattToast")
 
+    version("develop", branch="develop")
     version("0.4.2", sha256="ab632ff7d036e73822ddc5081fe85ea69c48d8be53ad0e6e487e9193eb3410f6")
 
     variant("torch", default=True, description="Build with the pytorch backend")
@@ -55,6 +56,7 @@ class PySmartsim(PythonPackage):
     depends_on("py-protobuf@3.20:3", type=("build", "run"))
 
     # Companion libs
+    depends_on("py-smartredis@develop", type=("build", "run"), when="@develop")
     depends_on("py-smartredis@0.4.0", type=("build", "run"), when="@0.4.2")
 
     # Backends
@@ -73,10 +75,12 @@ class PySmartsim(PythonPackage):
 
     # Remove dangerous build functionality from spack install
     patch("dont-build-db.patch")
-    patch("remove-cli-build-fns.patch")
+    patch("ss-0-4-3-remove-typed-cli-build-fns.patch", when="@develop")
 
-    # Remove out-dated deps
-    patch("remove-redis-py-cluster.patch", when="@0.4.2")
+    with when("@0.4.2"):
+        # SS 0.4.2 Dep upgrades and cli patches
+        patch("ss-0-4-2-remove-cli-build-fns.patch")
+        patch("ss-0-4-2-remove-redis-py-cluster.patch")
 
     @run_after("install")
     def symlink_bin_deps(self):
