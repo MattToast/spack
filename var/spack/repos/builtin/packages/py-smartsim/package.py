@@ -36,7 +36,7 @@ class PySmartsim(PythonPackage):
 
     maintainers("MattToast")
 
-    version("develop", branch="develop")
+    version("0.5.0", branch="35b36243dc84af62261a7f772bae92f0b3502faf01401423899cb2a48339858c")
     version("0.4.2", sha256="ab632ff7d036e73822ddc5081fe85ea69c48d8be53ad0e6e487e9193eb3410f6")
 
     variant("torch", default=True, description="Build with the pytorch backend")
@@ -56,7 +56,7 @@ class PySmartsim(PythonPackage):
     depends_on("py-protobuf@3.20:3", type=("build", "run"))
 
     # Companion libs
-    depends_on("py-smartredis@develop", type=("build", "run"), when="@develop")
+    depends_on("py-smartredis@0.4.1", type=("build", "run"), when="@0.5.0")
     depends_on("py-smartredis@0.4.0", type=("build", "run"), when="@0.4.2")
 
     # Backends
@@ -75,7 +75,7 @@ class PySmartsim(PythonPackage):
 
     # Remove dangerous build functionality from spack install
     patch("dont-build-db.patch")
-    patch("ss-0-4-3-remove-typed-cli-build-fns.patch", when="@develop")
+    patch("ss-0-5-0-remove-typed-cli-build-fns.patch", when="@0.5.0")
 
     with when("@0.4.2"):
         # SS 0.4.2 Dep upgrades and cli patches
