@@ -32,7 +32,7 @@ class PySmartredis(PythonPackage):
 
     maintainers("MattToast")
 
-    version("develop", branch="develop")
+    version("0.4.1", sha256="fff16ed1eb09648ac3c3f845373beb37f3ffe7414d8745ae36af9daf585f8c5b")
     version("0.4.0", sha256="d12779aa8bb038e837c25eac41b178aab9e16b729d50ee360b5af8f813d9f1dd")
 
     depends_on("python@3.8:3.10", type=("build", "run"))
@@ -44,7 +44,7 @@ class PySmartredis(PythonPackage):
     
     depends_on("py-numpy@1.18.2:", type=("build", "run"))
 
-    patch("sr_0_5_0_no_deps.patch", when="@develop")
+    patch("sr_0_4_1_no_deps.patch", when="@0.4.1")
     patch("sr_0_4_0_no_deps.patch", when="@0.4.0")
 
     def setup_build_environment(self, env):
