@@ -84,14 +84,13 @@ class PySmartsim(PythonPackage):
 
     @run_after("install")
     def symlink_bin_deps(self):
-        ss_core_path = (self.prefix
-                            .lib
-                            .join("python3.10")
-                            .join("site-packages")
-                            .smartsim
-                            ._core)
+        ss_core_path = join_path(self.prefix,
+                                 self.spec["python"].package.purelib,
+                                 "smartsim",
+                                 "_core")
         os.symlink(self.spec["redis"].prefix.bin.join("redis-server"),
-                   ss_core_path.bin.join("redis-server"))
+                   join_path(ss_core_path, "bin", "redis-server"))
         os.symlink(self.spec["redis"].prefix.bin.join("redis-cli"),
-                   ss_core_path.bin.join("redis-cli"))
-        os.symlink(self.spec["redis-ai"].prefix, ss_core_path.lib)
+                   join_path(ss_core_path, "bin", "redis-cli"))
+        os.symlink(self.spec["redis-ai"].prefix,
+                   join_path(ss_core_path, "lib"))
